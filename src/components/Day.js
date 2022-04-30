@@ -20,14 +20,21 @@ export default function Day({ day, rowIdx }) {
       width: "7",
     } : {}
   }
+  
+  const handleAddNewEvent = _ => {
+    const events = savedEvents.filter(evt => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY"))
+    if (events.length >= 3) {
+      alert('Max 3 events for a day!')
+      return false
+    }
+    setSelectedDay(day)
+    setShowEventModal(true)
+  }
   return (
     <Flex _hover={{
         backgroundColor: "blue.50"
       }} flexDir="column" cursor="pointer" border="1px" borderColor="gray.100"
-      onClick={() => {
-        setSelectedDay(day)
-        setShowEventModal(true)
-      }} flexDirection="column">
+      onClick={handleAddNewEvent} flexDirection="column">
       <Flex as="header" flexDir="column" alignItems="center" justifyContent="flex-end">
         <Text fontSize="sm" p="1" my={1} textAlign="right" textColor={day.month() !== monthIndex ? 'gray.400' : 'gray.700' } {...getCurrentDayProps()}>
           {day.format('DD')}
