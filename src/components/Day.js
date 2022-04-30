@@ -30,12 +30,19 @@ export default function Day({ day, rowIdx }) {
     setSelectedDay(day)
     setShowEventModal(true)
   }
+
+  const handlePreviewEvent = (evt, day) => {
+    setSelectedEvent(evt)
+    setSelectedDay(day)
+    setShowEventModal(true)
+  }
+
   return (
     <Flex _hover={{
         backgroundColor: "blue.50"
       }} flexDir="column" cursor="pointer" border="1px" borderColor="gray.100"
-      onClick={handleAddNewEvent} flexDirection="column">
-      <Flex as="header" flexDir="column" alignItems="center" justifyContent="flex-end">
+      flexDirection="column">
+      <Flex onClick={handleAddNewEvent} as="header" flexDir="column" alignItems="center" justifyContent="flex-end">
         <Text fontSize="sm" p="1" my={1} textAlign="right" textColor={day.month() !== monthIndex ? 'gray.400' : 'gray.700' } {...getCurrentDayProps()}>
           {day.format('DD')}
         </Text>
@@ -45,7 +52,7 @@ export default function Day({ day, rowIdx }) {
           <Text key={evt.id} bgColor={`${evt.labelBg}.200`} p="1" mx="1" fontSize="sm" color="gray.600" rounded="md" mb="1" _hover={{
             backgroundColor: `${evt.labelBg}.300`
           }} isTruncated
-          onClick={() => setSelectedEvent(evt)} >
+          onClick={() => handlePreviewEvent(evt, day)} >
             {evt.title}
           </Text>
         ))}

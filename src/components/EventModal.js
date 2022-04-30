@@ -20,7 +20,11 @@ function EventModal() {
       selectedLabelBg = savedEvents.filter(evt => dayjs(evt.day).format("DD-MM-YY") === selectedDay.format("DD-MM-YY")).map(evt => evt.labelBg)
       const restLabelBg = labelBackgrounds.filter(labelBg => !selectedLabelBg.includes(labelBg))
       randomIndexLabel = getRandomInt(restLabelBg.length - 1)
-      labelBg = restLabelBg[randomIndexLabel]
+      if (restLabelBg.length === 1) {
+        labelBg = restLabelBg[0]
+      } else {
+        labelBg = restLabelBg[randomIndexLabel]
+      }
     } else {
       randomIndexLabel = getRandomInt(labelBackgrounds.length - 1)
       labelBg = labelBackgrounds[randomIndexLabel]
